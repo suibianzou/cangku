@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tq.mybatis.mapper.ArticleMapper">
+
+<!--    <resultMap id="articleWithComment" type="Article">-->
+<!--        <id property="id" column="id"></id>-->
+<!--        <result property="title" column="title"></result>-->
+<!--        <result property="content" column="content"/>-->
+<!--        <result property="author" column="author"/>-->
+<!--        <collection property="commentList" ofType="Comment">-->
+<!--            <id property="id" column="bid"/>-->
+<!--            <result property="content" column="bcontent"/>-->
+<!--            <result property="author" column="bauthor"/>-->
+<!--        </collection>-->
+<!--    </resultMap>-->
+
+<!--    <select id="findArticleById"  parameterType="Integer" resultMap="Article">-->
+<!--        SELECT a.* ,b.content bcontent,b.id bid,b.author bauthor-->
+<!--        FROM t_article a,t_comment b-->
+<!--        WHERE a.id=b.a_id AND a.id=#{id}-->
+<!--    </select>-->
+<!--    <insert id="insertArticle" parameterType="Article">-->
+<!--        INSERT INTO t_article (title,content,author)-->
+<!--        VALUE (#{title},#{content},#{author})-->
+<!--    </insert>-->
+        <select id="findArticleById" parameterType="Integer" resultType="Article">
+            SELECT title,content FROM t_article
+            WHERE ID=#{id};
+        </select>
+        <insert id="insertArticle" parameterType="Article">
+            INSERT INTO t_article (title,content,author)
+            VALUE (#{title},#{content},#{author});
+        </insert>
+    <update id="updataArticle" parameterType="Article">
+        UPDATE t_article SET title=#{title},content=#{content},author=#{author}
+        WHERE id=#{id};
+    </update>
+    <delete id="deleteArticle" parameterType="Integer">
+        DELETE FROM t_article
+        WHERE ID=#{id};
+    </delete>
+    <select id="findContent" parameterType="Comment" resultType="Comment">
+        SELECT * FROM t_comment
+        <where>
+            <if test="id!=null">and id=#{id}</if>
+            <if test="content!=null and content!=''" >and content like "%"#{content}"%"</if>
+            <if test="author!=null and author!=''" >and author like "%"#{author}"%"</if>
+        </where>
+    </select>
+</mapper>

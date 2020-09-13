@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Hello, World</title>
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}" rel="stylesheet" type="text/css"/>
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.js}"></script>
+    <style type="text/css">
+        html{height:100%}
+        body{height:100%;margin:0px;padding:0px}
+        #container{height:100%}
+    </style>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=HMZhLj1VTLLjS6YrcsLdEXglMe1ZG6S3">
+    </script>
+</head>
+
+<body>
+<div>
+    <div th:each="comment:${city}">
+    <p th:value="${comment.cityname}"></p>
+
+    <p  id="weidu" th:if="${comment.weidu} ne null" th:value="${comment.weidu}" ></p>
+
+    <p id="jingdu" th:value="${comment.jingdu}" ></p>
+    </div>
+<div class="card-header">百度地图</div>
+    <form  method="get" action="/admin/selectCity">
+        <div id="select"><input type="text" th:value="${city!=null?city.cityname:''}" id="cityname" name="cityname" placeholder="请输入查询城市"><button type="submit" id="city" th:value="${city}">查询</button> </div>
+<!--        <div id="weidu" th:value="${city.weidu}"></div><div id="jingdu" th:value="${city.jingdu}"></div>-->
+    </form>
+
+<!--    <div id="select"><input type="text" th:value="${city!=null?city.cityname:''}" id="city" name="cityname" placeholder="请输入查询城市"><button type="button" onclick="selectCity()">查询</button> </div>-->
+<div class="card-body" style="width: 100%;height: 500px;">
+
+    <div id="container"></div>
+</div>
+<div class="card-footer"></div>
+</div>
+<script type="text/javascript">
+    // function selectCity(){
+    //    // alert("aaa");
+    // $.ajax({
+    //     url: "/admin/select",
+    //     type: "post",
+    //     data: {"cityname":cityname},
+    //     success:function (result) {
+    //         window.location.reload();
+    //     }
+    // });
+    // }
+    //
+    $(function () {
+        showmap();
+    });
+    var weidu=document.getElementById("weidu").attributes["value"].value;
+    var jingdu=document.getElementById("jingdu").attributes["value"].value;
+
+    function showmap() {
+
+        var city=document.getElementById("city").value;
+        var cityname=document.getElementById("cityname").value;
+
+        console.log(city);
+        console.log(cityname);
+        console.log(weidu);
+        console.log(jingdu);
+        if (cityname==""){
+            weidu=104.907;
+            jingdu=30.903;
+        }
+        var map = new BMapGL.Map("container");
+        var scaleCtrl = new BMapGL.ScaleControl();  // 添加比例尺控件
+        map.addControl(scaleCtrl);
+        var zoomCtrl = new BMapGL.ZoomControl();  // 添加比例尺控件
+        map.addControl(zoomCtrl);
+    // 创建地图实例
+    var point = new BMapGL.Point(weidu, jingdu); // 创建点坐标
+
+    map.enableScrollWheelZoom(true);//开启鼠标缩放事件
+
+    map.centerAndZoom(point, 15);// 初始化地图，设置中心点坐标和地图级别
+        map.setHeading(64.5);   //设置地图旋转角度
+        map.setTilt(73);       //设置地图的倾斜角度
+
+    };
+
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/echarts.min.js}"></script>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="mychart_1" style="width: 600px;height:400px;"></div>
+<div id="mychart_2" style="width: 600px;height:400px;"></div>
+<script type="text/javascript">
+    $(function () {
+        //初始化图表
+       var mychart_1=echarts.init(document.getElementById('mychart_1'));
+       var mychart_2=echarts.init(document.getElementById('mychart_2'));
+       //定义数组，存放表中的数据
+        var names=[];
+        var values=[];
+       var arry=new Array()
+        //数据加载画面
+        mychart_1.showLoading();
+        mychart_2.showLoading();
+        //通过ajax获取动态数据
+        $.ajax({
+            url:"/admin/getEcharts",
+            type:"post",
+            data:{},
+            success:function (result) {
+                console.log(result);
+                if(result!=null){
+                    for(var i=0;i<result.length;i++){
+                        names.push(result[i].name);//跟新动态数据
+                        console.log(names[i]);
+                        values.push(result[i].num);
+                        console.log(values[i]);
+                        console.log(result);
+                        arry[i]={value:result[i].num,
+                                name:result[i].name
+                        };
+                    }
+
+                    //柱状图表的配置及数据项
+                    var option = {
+                        title: {
+                            text: '点击量统计图'
+                        },
+                        tooltip: {},
+                        legend: {
+                            data:['博客点击量']
+                        },
+                        xAxis: {
+                            data: names
+                        },
+                        yAxis: {},
+                        series: [{
+                            name: '点击量',
+                            type: 'bar',
+                            data: values
+                        }]
+                    };
+
+                    //饼图配置及数据项
+                    var option_2 = {
+                        title: {
+                            text: '数量统计',
+                            subtext: '饼图',
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: '{a} <br/>{b} : {c} ({d}%)'
+                        },
+                        legend: {
+                            type: 'scroll',
+                            orient: 'vertical',
+                            right: 10,
+                            top: 20,
+                            bottom: 20,
+                            data: names
+                        },
+                        series: [
+                            {
+                                name: '年份',
+                                type: 'pie',
+                                radius: '55%',
+                                center: ['40%', '50%'],
+                                data:  arry,
+                                //     [
+                                //
+                                //     {value:1331,name:"2001年"},
+                                //     {value:1545,name:"2002年"},
+                                //     {value:1422,name:"2003年"},
+                                //     {value:3221,name:"2004年"},
+                                //     {value:5622,name:"2005年"}
+                                //
+                                // ],
+                                emphasis: {
+                                    itemStyle: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                            }
+                        ]
+                    };
+                    // 使用刚指定的配置项和数据显示图表。
+                    mychart_1.setOption(option);
+                    mychart_2.setOption(option_2);
+                    mychart_1.hideLoading();
+                    mychart_2.hideLoading();
+                }
+
+                else {
+                    alert("获取统计数据失败");
+                    mychart_1.hideLoading();
+                    mychart_2.hideLoading();
+
+                }
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

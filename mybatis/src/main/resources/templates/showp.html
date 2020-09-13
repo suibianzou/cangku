@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}" rel="stylesheet" type="text/css"/>
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.js}"></script>
+
+    <title>Title</title>
+    <style>
+        div{
+            margin: 0 auto;
+        }
+        .carousel-inner img{
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="card-header">
+    <span class="input-group-text" style="width: 100px;">显示结果</span>
+</div>
+<div class="card-body">
+    <div>
+        用户名:<span th:text="${user.username}"></span><br>
+        电子邮箱：<span  th:text="${user.email}">电子邮箱：</span><br>
+        注册时间：<span  th:text="${user.created}">注册时间：</span><br>
+    </div>
+
+    <div id="demo" class="carousel slide" data-ride="carousel">
+
+        <!-- 指示符 -->
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+        </ul>
+
+        <!-- 轮播图片 -->
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+               <p style="text-align: center"> <img th:src="@{${picfiles[0]}}" style="width: 40%;height: 40%;"></p>
+
+            </div>
+            <div class="carousel-item">
+                <p style="text-align: center"> <img th:src="@{${picfiles[1]}}" style="width: 40%;height: 40%;"></p>
+            </div>
+            <div class="carousel-item">
+                <p style="text-align: center"> <img th:src="@{${picfiles[2]}}" style="width: 40%;height: 40%;"></p>
+            </div>
+        </div>
+
+        <!-- 左右切换按钮 -->
+        <a class="carousel-control-prev" href="#demo" data-slide="prev" style="margin-left: 25%">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next" style="margin-right: 25%">
+            <span class="carousel-control-next-icon "></span>
+        </a>
+
+    </div>
+    <div class="btn-secondary">
+            <span th:each="pic:${picfiles}">
+                <img th:src="@{${pic}}" style="width:30%;height: 30%;">
+            </span>
+    </div>
+    <div class="bg-light">
+        <span>下载</span>
+        <div th:each="pic:${picfiles}">
+            <a th:href="@{${pic}}" th:text="${pic}"></a>
+        </div><br>
+        <div th:each="pic:${picfiles}">
+            <a th:href="@{'/admin/download?filename='+${pic}}" th:text="${pic}"></a>
+        </div>
+    </div>
+</div>
+<div class="card-footer"></div>
+</body>
+</html>

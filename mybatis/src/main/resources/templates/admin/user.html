@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}" rel="stylesheet" type="text/css"/>
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.js}"></script>
+
+    <title>Title</title>
+    <script>
+        function add() {
+            var innerdiv="<div class='mt-1'>";
+                innerdiv+="<input type='file' name='fileupload' required>"+
+                        "<input type='button' class='btn-sm btn btn-warning' value='删除' onclick='remove(this)'>";
+                innerdiv+="</div>";
+                $("#file").append(innerdiv);
+        }
+        function remove(obj) {
+            $(obj).parent().remove();
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <div class="card-header">用户注册</div>
+        <div class="card-body">
+            <form method="post" action="/admin/uploadfileregister" enctype="multipart/form-data">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend" >
+                        <span class="input-group-text">用 户 名 :</span>
+                        <input type="text" name="username" placeholder="用户名" style="width: 1400px;">
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend" >
+                        <span class="input-group-text">用户密码:</span>
+                        <input type="password" name="password" placeholder="用户密码" style="width: 1400px;">
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend" >
+                        <span class="input-group-text">重输密码:</span>
+                        <input type="password" placeholder="重输密码" style="width: 1400px;">
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend" >
+                        <span class="input-group-text">电子邮箱:</span>
+                        <input type="email" name="email" placeholder="电子邮箱" style="width: 1400px;">
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend" >
+                    <span class="input-group-text">上传文件:</span>
+                    <button class="btn btn-sm btn-success" onclick="add()">添加文件</button>
+                    </div>
+                </div>
+                <div id="file" class="mt-3" th:value="文件上传区域"></div>
+                <input type="submit" value="注册" class="btn btn-info">
+            </form>
+        </div>
+        <div class="card-footer"></div>
+    </div>
+</body>
+<!--<script>-->
+<!--    function add() {-->
+<!--        var innerdiv="<div class='mt-1'>";-->
+<!--            innerdiv+="<input type='file' name=fileupload' required'>"+-->
+<!--                    "<input type='button' class='btn btn-sm btn-warning' value='删除' onclick='remove(this)'>";-->
+<!--            innerdiv+="</div>"-->
+<!--            ${"file"}.append(innerdiv);-->
+<!--    }-->
+<!--    function remove(obj) {-->
+<!--        ${obj}.parent().remove();-->
+<!--    }-->
+<!--</script>-->
+</html>

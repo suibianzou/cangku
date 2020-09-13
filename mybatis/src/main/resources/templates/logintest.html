@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}" rel="stylesheet" type="text/css" >
+
+    <script th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.js}"></script>
+    <script th:href="@{/webjars/jquery/3.2.1/css/jquery.js}"></script>
+    <meta name="referrer" content="never">
+    <script>
+        $(function () {
+            var ms=[[${msg}]];
+            if (ms!=null){
+                alert(ms);
+            }
+        });
+    </script>
+</head>
+<body class="bg-secondary">
+        <div class="container-fluid  pl-0 pr-0" id="container" style="height: 300px; position: absolute;top: 50%;margin-top: -200px;">
+        <div id="login" class=" col-md-6 pr-0 pl-0 offset-3" style="height: 300px">
+            <div id="login-left" class=" col-md-7  row offset-md-0" style="height: 300px;float: left">
+                <div class="container-fluid pr-0 pl-0 row " style="margin-left: 0px;">
+                    <div id="loginleft-lefttop" class=" col-md-2 pr-0 pl-0" style="height: 50px;">
+                        <img th:src="@{/imgs/l2.jpg}" style="width: 80px;height: 50px;"/>
+                    </div>
+                    <div id="loginleft-righttop" class="bg-success col-md-10" style="height: 50px;">
+                        <h5 style="text-align: center;margin-top: 10px;" th:text="#{login.blog}">博客登录系统</h5>
+                    </div>
+                    <div id="login-right" class="bg-info col-md-12" style="height: 250px;padding-left: 0px;">
+                        <img th:src="@{/imgs/l.jpg}" style="height: 250px;width: 420px;padding-left: 0px;"/>
+                    </div>
+                </div>
+            </div>
+            <div id="right" class="bg-light col-md-4  row offset-md-0" style="height: 300px;float: left">
+                <div class="text-center pt-md-2 mt-2 border-bottom" style="height: 50px;width: 100%;clear: both;"th:text="#{login.tip}">
+                    请登录
+                </div>
+                <div id="information" th:text="${msg}" class="text-center" style="text-align: center;color: red;width: 100%; font-size: small"></div>
+                <form class="form" method="post" th:action="@{/login}" style="margin-top: -60px">
+                    <div class="input-group input-group-sm " style="margin-top: 80px;">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="width: 75px" th:text="#{login.username}">用户名</label>
+                        </div>
+                        <input type="text" name="username" class="form-control">
+                    </div>
+                    <div class="input-group input-group-sm mt-md-4">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="width: 75px" th:text="#{login.password}">密码</label>
+                        </div>
+                        <input type="password"  name="password" class="form-control">
+                    </div>
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-sm btn-success form-control" th:text="#{login.button}">登录</button>
+                        <p style="text-align: center;margin-top: 30px"><span><a th:href="@{/testlogin(lang='zh_CN')}">中文</a> </span>||<span><a th:href="@{/testlogin(lang='en_US')}">English</a> </span></p>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+        </div>
+</body>
+</html>

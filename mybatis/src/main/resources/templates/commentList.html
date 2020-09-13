@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:each="comment:${commentList}">
+        <p><span>编号:</span><span th:text="${comment.id}"></span> </p>
+        <p><span>内容:</span><span th:text="${comment.content}"></span> </p>
+        <p><span>作者:</span><span th:text="${comment.author}"></span> </p>
+    </div>
+    <div>
+        <p>消息表达试</p>
+        <p><span>:</span><span th:text="#{login.username}"></span> </p>
+        <p><span>:</span><span th:text="#{login.password}"></span> </p>
+        <p><span>:</span><span th:text="#{login.rememberme}"></span> </p>
+        <p><span><a th:href="@{/MyComment(lang='zh_CN')}">中文</a> </span><span><a th:href="@{/MyComment(lang='en_US')}">English</a> </span></p>
+    </div>
+</body>
+</html>

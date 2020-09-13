@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p th:text="欢迎来到thymeleaf">hahahahahaha</p>
+    <div th:object="${comment}">
+        <p th:text="${#object.id}">编号</p>
+        <p th:text="${#object.content}">类容</p>
+        <p th:text="${#object.author}">作者</p>
+    </div>
+    <div>
+        <p>消息表达试</p>
+        <p><span>编号:</span><span th:text="#{login.username}"></span> </p>
+        <p><span>内容:</span><span th:text="#{login.password}"></span> </p>
+        <p><span>作者:</span><span th:text="#{login.rememberme}"></span> </p>
+
+    </div>
+</body>
+</html>

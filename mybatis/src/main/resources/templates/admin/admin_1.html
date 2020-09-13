@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}" rel="stylesheet" type="text/css"/>
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.js}"></script>
+
+    <style>
+        .card-header{
+            height: 40px;
+            padding-top: 8px;
+            padding-left: 20px;
+        }
+        .card-link{
+            color: aqua;
+        }
+        .nav-link{
+            color: cyan;
+        }
+    </style>
+    <script type="text/javascript">
+        window.οnlοad=function(){
+            setInterval(function(){
+                var date=new Date();
+                var year=date.getFullYear(); //获取当前年份
+                var mon=date.getMonth()+1; //获取当前月份
+                var da=date.getDate(); //获取当前日
+                var day=date.getDay(); //获取当前星期几
+                var h=date.getHours(); //获取小时
+                var m=date.getMinutes(); //获取分钟
+                var s=date.getSeconds(); //获取秒
+                var d=document.getElementById('Date');
+                d.innerHTML='当前时间:'+year+'年'+mon+'月'+da+'日'+'星期'+day+' '+h+':'+m+':'+s;  },1000)  }
+    </script>
+</head>
+<body>
+<div id="contrainer" class="container-fluid">
+    <div id="top" class="bg-primary row" style="position: absolute;height: 10%; width: 100%;margin-left: 0px;">
+        <div id="top-left" class="col-md-2 bg-white" style="height: 100%;">
+            <img th:src="@{/imgs/l2.jpg}" style="width: 60px;height: 50px;margin-top: 5px;margin-left: -5px;">
+            <span style="font-family: 仿宋;font-size: 24px;text-align: center;height: 100%">博客登录系统</span>
+        </div>
+        <div id="top-right" class="col-md-10 bg-dark text-light text-sm-right small" style="height: 100%;padding-top: 20px;padding-right: 30px;">
+                <span id="time" >
+                    <script type="text/javascript">
+                        function tim(){
+                            var tim = new Date();
+                            var year=tim.getFullYear();
+                            var month=tim.getMonth();
+                            var date=tim.getDate();
+                            var week;
+                            switch (tim.getDay()){
+                                case 1: week="星期一"; break;
+                                case 2: week="星期二"; break;
+                                case 3: week="星期三"; break;
+                                case 4: week="星期四"; break;
+                                case 5: week="星期五"; break;
+                                case 6: week="星期六"; break;
+                                default: week="星期天";
+                            }
+                            var h = tim.getHours();
+                            var m = tim.getMinutes();
+                            var s = tim.getSeconds();
+                            document.getElementById("time").innerHTML="时间："+year+"-"+month+"-"+date+"  "+week+"  "+ h +":"+ m+":"+s;
+                        }
+                        setInterval("tim()",1000);
+                  </script>
+                </span>
+            &nbsp;&nbsp;当前用户：
+            <span th:text="${username}">
+
+                </span>&nbsp;&nbsp;
+            <button class="btn border-white text-light btn-sm" >
+                <a th:href="@{/loginout}">注销</a>
+            </button>
+        </div>
+    </div>
+    <div id="middel" class="bg-white row" style="position: absolute;height: 80%;width: 100%;top: 10%;margin-left: 0px;border-bottom: 1px solid silver;border-top: 1px silver solid;">
+        <div id="middel-left" class="col-md-2 bg-white" style="height: 100%;border-right: 1px gainsboro solid;">
+            <div id="accordion" class="mt-2">
+                <div class="card mt-1">
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                            系统管理
+                        </a>
+                    </div>
+                    <div id="collapseOne" class="collapse" data-parent="#accordion">
+                        <div class="card-body p-1">
+                            <nav class="navbar bg-light">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/showp}" target="myiframe">用户管理</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/admin/user}" target="myiframe">用户注册</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">退出系统</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-1">
+                    <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo" >
+                            发贴管理
+                        </a>
+                    </div>
+                    <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                        <div class="card-body p-1">
+                            <nav class="navbar bg-light">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/admin/article}" target="myiframe">发布内容</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">删除内容</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/admin/test}" target="myiframe">测试</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-1">
+                    <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree" >
+                            跟贴管理
+                        </a>
+                    </div>
+                    <div id="collapseThree" class="collapse" data-parent="#accordion">
+                        <div class="card-body p-1">
+                            <nav class="navbar bg-light">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link"  th:href="@{/admin/comment}" target="myiframe">跟贴管理</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/admin/echerts}" target="myiframe">图表信息</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/admin/baidumap}" target="myiframe">百度地图</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div id="middel-right" class="col-md-10 bg-white" style="height: 100%">
+            <iframe name="myiframe" class="border border-dark mt-2" height="80%" width="100%" th:src="@{/admin/welcome}"></iframe>
+        </div>
+    </div>
+    <div id="footer" class="bg-primary row" style="position: absolute;height: 10%;width: 100%;bottom: 0%;margin-left: 0px">
+        <div id="fotter-left" class="col-md-2 bg-white" style="height: 100%;"></div>
+        <div id="fotter-right" class="col-md-10 bg-dark text-center pt-md-4 text-light small" style="height: 100%">
+            &copy;<span th:text="${'2020'}"></span>&nbsp;&nbsp;<span>四川职业技术学院2018级软件一班</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/wangEditor.min.js}"></script>
+    <title>Title</title>
+    <!--富文本框编辑-->
+    <style>
+
+    </style>
+<!--    <script>-->
+<!--        $(function (){-->
+<!--            var ms=$[[${msg}];-->
+
+
+<!--        })-->
+<!--    </script>-->
+</head>
+<body>
+    <form method="post" action="/admin/saveArticle" class="form">
+        <div style="border: black 1px solid" class="input-group-prepend">
+            <lable  class="input-group-text" >文章标题:</lable><input id="title" name="title" type="text">
+        </div>
+        <div style="border: black 1px solid" class="input-group-prepend">
+            <lable  class="input-group-text" >作者:</lable><input id="author" name="author" type="text">
+        </div>
+        <div style="border: black 1px solid" class="input-group-prepend">
+            <lable class="input-group-text" >文章内容:</lable>
+            <span th:text="${msg}">字在哪</span>
+        </div>
+        <textarea class="form-control" style="display: none;"type="text" id="content" name="content"></textarea>
+        <div id="myEditor" style="width: 100%;">
+            <p>欢迎使用<b>wangEditor</b></p>
+        </div>
+        <input type="submit" value="提交" style="width: 100%" class="btn-success">
+    </form>
+    <script>
+        var editor=new window.wangEditor("#myEditor");
+        //base64
+        editor.customConfig.uploadImgShowBase64=true;
+        editor.customConfig.onchange=function(html){
+            $("#content").val(html);
+            //alert($("#content").val(html));
+        };
+        editor.create();
+    </script>
+</body>
+</html>
